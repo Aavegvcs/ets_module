@@ -1,55 +1,51 @@
-﻿using System.Numerics;
-
-namespace WebApplicationETS.Model.Compliances.VehicleCompliances
+﻿namespace WebApplicationETS.Model.Compliances.VehicleCompliances
 {
     public class Vehicle
     {
-        public int vehicleid { get; set; }
-        public string? vehicle_registration_no { get; set; }
-        public int? vehicletypecode { get; set; }
-        public int? transporterid { get; set; }
-        public int? bpid { get; set; }
-        public string? trackee_id { get; set; }
-        public string? trackee_name { get; set; }
-        public int? vehicle_status { get; set; }
-        public int? loccode { get; set; }
-        public DateTime? vehicle_registration_date { get; set; }
-        public DateTime? vehicle_induction_date { get; set; }
-        public string? vehicle_no { get; set; }
-        public DateTime? registration_exp_date { get; set; }
-        public DateTime? firstaid_kid_date { get; set; }
-        public DateTime? fire_extinguisher_date { get; set; }
-        public int? driverid { get; set; }
-        public string? make { get; set; }
-        public string? model { get; set; }
-        public string? chassis_no { get; set; }
-        public DateTime? permit_expiry_date { get; set; }
-        public DateTime? insurance_expiry_date { get; set; }
-        public DateTime? fitness_expiry_date { get; set; }
-        public DateTime? road_tax_validity_expiry { get; set; }
-        public DateTime? puc_expiry_date { get; set; }
-        public int? kms_run_before_onboarding { get; set; }
-        public string? insurance_agency_name { get; set; }
-        public string? owner_name { get; set; }
-        public DateTime? ccpermit_date { get; set; }
-        public string? owner_address { get; set; }
-        public string? owner_type { get; set; }
-        public DateTime? valid_token_tax_date { get; set; }
-        public DateTime? passenger_tax_date { get; set; }
-        public bool? isgpsinstalled { get; set; }
-        public DateTime? gps_installation_date { get; set; }
+        public int VehicleId { get; set; }
+        public string? VehicleRegistrationNo { get; set; }
+        public int? VehicleTypeCode { get; set; }
+        public int? TransporterId { get; set; }
+        public int? Bpid { get; set; }
+        public string? TrackeeId { get; set; }
+        public string? TrackeeName { get; set; }
+        public int? VehicleStatus { get; set; }
+        public int? LocCode { get; set; }
+        public DateTime? VehicleRegistrationDate { get; set; }
+        public DateTime? VehicleInductionDate { get; set; }
+        public string? VehicleNo { get; set; }
+        public DateTime? RegistrationExpDate { get; set; }
+        public DateTime? FirstAidKidDate { get; set; }
+        public DateTime? FireExtinguisherDate { get; set; }
+        public int? DriverId { get; set; }
+        public string? Make { get; set; }
+        public string? Model { get; set; }
+        public string? ChassisNo { get; set; }
+        public DateTime? PermitExpiryDate { get; set; }
+        public DateTime? InsuranceExpiryDate { get; set; }
+        public DateTime? FitnessExpiryDate { get; set; }
+        public DateTime? RoadTaxValidityExpiry { get; set; }
+        public DateTime? PucExpiryDate { get; set; }
+        public int? KmsRunBeforeOnboarding { get; set; }
+        public string? InsuranceAgencyName { get; set; }
+        public string? OwnerName { get; set; }
+        public DateTime? CcpermitDate { get; set; }
+        public string? OwnerAddress { get; set; }
+        public string? OwnerType { get; set; }
+        public DateTime? ValidTokenTaxDate { get; set; }
+        public DateTime? PassengerTaxDate { get; set; }
+        public bool? IsGpsInstalled { get; set; }
+        public DateTime? GpsInstallationDate { get; set; }
         public int? GPSProviderCode { get; set; }
         public int? FuelTypeCode { get; set; }
-        public bool? cng_endorsement_in_rc { get; set; }
-        public int? current_status { get; set; }
-        public bool? mandatory_signage { get; set; }
-        public string? engine_capacity_cc { get; set; }
-        public int? modby { get; set; }
-        public DateTime? modon { get; set; }
-        public DateTime? Makeyear { get; set; }
+        public bool? CngEndorsementInRc { get; set; }
+        public int? CurrentStatus { get; set; }
+        public bool? MandatorySignage { get; set; }
+        public string? EngineCapacityCc { get; set; }
+        public int? ModBy { get; set; }
+        public DateTime? ModOn { get; set; }
+        public DateTime? MakeYear { get; set; }
         public string? Remarks { get; set; }
-
-
-
     }
+
 }

@@ -2,6 +2,7 @@
 {
     public class Vendor
     {
+        public int VendorId { get; set; }
         public int? LOCCODE { get; set; }
         public int? TRANSPORTERID { get; set; }
         public string? VENDOR_NAME { get; set; }
