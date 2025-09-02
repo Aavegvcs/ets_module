@@ -1,10 +1,11 @@
 ﻿
 using WebApplicationETS.Model.Compliances.VehicleCompliances;
+using WebApplicationETS.Model.otherModel;
 
 namespace WebApplicationETS.Service.CompliancesServices.VehicleServices
 {
     public interface IVehicleService
     {
-        Task<Vehicle> AddVehicleAsync(Vehicle vehicle); 
+        Task<ApiResponse<Vehicle>> AddVehicleAsync(Vehicle vehicle); 
     }
 }

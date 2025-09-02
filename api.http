@@ -1,0 +1,8 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+### Create a new BillPlan
+GET https://localhost:7158/api/BillPlan
+Content-Type: application/json
+Accept: application/json
+
+
+

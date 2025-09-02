@@ -22,14 +22,12 @@ namespace WebApplicationETS.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddVehicle([FromBody] Vehicle vehicle)
         {
-            if (vehicle == null)
-            {
-                return BadRequest(new ApiResponse<string>("failed", null, true, "Invalid vehicle data"));
-            }
+            var response = await _vehicleService.AddVehicleAsync(vehicle);
 
-            var newVehicle = await _vehicleService.AddVehicleAsync(vehicle);
+            if (!response.Status)
+                return BadRequest(response);
 
-            return Ok(new ApiResponse<Vehicle>("success", newVehicle, false, "Vehicle added successfully"));
+            return CreatedAtAction(nameof(AddVehicle), response);
         }
 
     }

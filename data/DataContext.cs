@@ -14,5 +14,12 @@ namespace WebApplicationETS.Data
         // Add DbSets for your entities
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+
+        public DbSet<lkpBillPlanType> lkpBillPlanTypes { get; set; }
+        public DbSet<lkpFuelType> lkpFuelTypes { get; set; }
+
+        public DbSet<lkpVehicleType> lkpVehicleTypes { get; set; }
+
+        public DbSet<lkpVehicleModel> lkpVehicleModels { get; set; }
     }
 }

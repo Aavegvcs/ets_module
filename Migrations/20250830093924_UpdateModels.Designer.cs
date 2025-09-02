@@ -12,7 +12,7 @@ using WebApplicationETS.Data;
 namespace WebApplicationETS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250828070004_UpdateModels")]
+    [Migration("20250830093924_UpdateModels")]
     partial class UpdateModels
     {
         /// <inheritdoc />
@@ -33,26 +33,35 @@ namespace WebApplicationETS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleId"));
 
-                    b.Property<int?>("Bpid")
+                    b.Property<int>("Bpid")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CcpermitDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ChassisNo")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool?>("CngEndorsementInRc")
                         .HasColumnType("bit");
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("CurrentStatus")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DriverId")
+                    b.Property<int>("DriverId")
                         .HasColumnType("int");
 
                     b.Property<string>("EngineCapacityCc")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime?>("FireExtinguisherDate")
                         .HasColumnType("datetime2");
@@ -63,7 +72,7 @@ namespace WebApplicationETS.Migrations
                     b.Property<DateTime?>("FitnessExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FuelTypeCode")
+                    b.Property<int>("FuelTypeCode")
                         .HasColumnType("int");
 
                     b.Property<int?>("GPSProviderCode")
@@ -73,7 +82,8 @@ namespace WebApplicationETS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("InsuranceAgencyName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("InsuranceExpiryDate")
                         .HasColumnType("datetime2");
@@ -84,11 +94,12 @@ namespace WebApplicationETS.Migrations
                     b.Property<int?>("KmsRunBeforeOnboarding")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LocCode")
+                    b.Property<int>("LocCode")
                         .HasColumnType("int");
 
                     b.Property<string>("Make")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("MakeYear")
                         .HasColumnType("datetime2");
@@ -103,16 +114,21 @@ namespace WebApplicationETS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("OwnerAddress")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("OwnerName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("OwnerType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("PassengerTaxDate")
                         .HasColumnType("datetime2");
@@ -123,22 +139,25 @@ namespace WebApplicationETS.Migrations
                     b.Property<DateTime?>("PucExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("RegistrationExpDate")
+                    b.Property<DateTime>("RegistrationExpDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime?>("RoadTaxValidityExpiry")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("TrackeeId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("TrackeeName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("TransporterId")
+                    b.Property<int>("TransporterId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ValidTokenTaxDate")
@@ -147,24 +166,54 @@ namespace WebApplicationETS.Migrations
                     b.Property<DateTime?>("VehicleInductionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("VehicleNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("VehicleRegistrationDate")
+                    b.Property<DateTime>("VehicleRegistrationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("VehicleRegistrationNo")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("VehicleStatus")
+                    b.Property<int>("VehicleStatus")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VehicleTypeCode")
+                    b.Property<int>("VehicleTypeCode")
                         .HasColumnType("int");
 
                     b.HasKey("VehicleId");
 
+                    b.HasIndex("VehicleRegistrationNo")
+                        .IsUnique();
+
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.lkpBillPlanType", b =>
+                {
+                    b.Property<string>("BPTCODE")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool?>("ACTIVE")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("BPTNAME")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ModBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("createdby")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("createdon")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("BPTCODE");
+
+                    b.ToTable("lkpBillPlanTypes");
                 });
 
             modelBuilder.Entity("WebApplicationETS.Model.Compliances.VendorCompliances.Vendor", b =>

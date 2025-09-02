@@ -1,5 +1,6 @@
 ﻿using WebApplicationETS.Data;
 using WebApplicationETS.Model.Compliances.VehicleCompliances;
+using WebApplicationETS.Model.otherModel;
 
 
 namespace WebApplicationETS.Service.CompliancesServices.VehicleServices
@@ -13,11 +14,17 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices
             _context = context;
 
         }
-        public async Task<Vehicle> AddVehicleAsync(Vehicle vehicle)
+        public async Task<ApiResponse<Vehicle>> AddVehicleAsync(Vehicle vehicle)
         {
+            if (vehicle == null)
+            {
+                return new ApiResponse<Vehicle>(false, null, "Invalid vehicle data");
+            }
+
             _context.Vehicles.Add(vehicle);
             await _context.SaveChangesAsync();
-            return vehicle;
+
+            return new ApiResponse<Vehicle>(true, vehicle, "Vehicle added successfully");
         }
 
     }

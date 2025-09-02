@@ -1,15 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplicationETS.Data;
 using WebApplicationETS.Middleware;
-using WebApplicationETS.Service.CompliancesServices.VehicleServices; // ✅ Correct namespace for DataContext
+using WebApplicationETS.Service.CompliancesServices.VehicleServices;
+using WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlanService;
+using WebApplicationETS.Service.CompliancesServices.VehicleServices.FuelTypeService;
+using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleModelService;
+using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleTypeService; // ✅ Correct namespace for DataContext
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidateModelAttribute>();   // 👈 our global validation filter
+});
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    // Prevent automatic 400 response
+    options.SuppressModelStateInvalidFilter = true;
+});
+
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IBillPlanService, BillPlanService>();
+builder.Services.AddScoped<IFuelTypeService,FuelTypeService>();
+builder.Services.AddScoped<IVehicleModelService, VehicleModelService>();
+builder.Services.AddScoped<IVehicleTypeService,VehicleTypeService>();
 
 // Register EF Core DbContext
 builder.Services.AddDbContext<DataContext>(options =>
@@ -21,6 +42,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 var app = builder.Build();
 app.UseMiddleware<GlobalExceptionMiddleware>();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

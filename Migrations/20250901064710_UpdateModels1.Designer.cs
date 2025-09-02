@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationETS.Data;
 
@@ -11,9 +12,11 @@ using WebApplicationETS.Data;
 namespace WebApplicationETS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250901064710_UpdateModels1")]
+    partial class UpdateModels1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,66 +234,6 @@ namespace WebApplicationETS.Migrations
                     b.HasKey("FuelTypeCode");
 
                     b.ToTable("lkpFuelTypes");
-                });
-
-            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.lkpVehicleModel", b =>
-                {
-                    b.Property<int>("MODELID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MODELID"));
-
-                    b.Property<bool?>("ACTIVE")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("CREATEDBY")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CREATEDON")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("LOCCODE")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MODELDESC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("VEHICLETYPECODE")
-                        .HasColumnType("int");
-
-                    b.HasKey("MODELID");
-
-                    b.ToTable("lkpVehicleModels");
-                });
-
-            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.lkpVehicleType", b =>
-                {
-                    b.Property<int>("VEHICLETYPECODE")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VEHICLETYPECODE"));
-
-                    b.Property<short>("CAPACITY")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("CREATEDBY")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CREATEDON")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LOCCODE")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VEHICLETYPEDESC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("VEHICLETYPECODE");
-
-                    b.ToTable("lkpVehicleTypes");
                 });
 
             modelBuilder.Entity("WebApplicationETS.Model.Compliances.VendorCompliances.Vendor", b =>

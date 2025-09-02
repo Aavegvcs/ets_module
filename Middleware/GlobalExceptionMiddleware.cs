@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
 using System.Text.Json;
 using WebApplicationETS.Model.otherModel;
 
@@ -21,40 +23,63 @@ namespace WebApplicationETS.Middleware
         {
             try
             {
-                await _next(context); // Continue request pipeline
+                await _next(context);
+            }
+            catch (DbUpdateException dbEx) // EF save failures
+            {
+                _logger.LogError(dbEx, "DbUpdateException");
+
+                var (status, message) = MapDbUpdateException(dbEx);
+
+                context.Response.StatusCode = (int)status;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsJsonAsync(
+                    new ApiResponse<string>(false, null,
+                        _env.IsDevelopment() ? message : "A database error occurred.")
+                );
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception");
 
-                // Map exception → status code and message
-                var (statusCode, message) = ex switch
-                {
-                    JsonException => ((int)HttpStatusCode.BadRequest, "Invalid JSON format in request body."),
-                    ArgumentException => ((int)HttpStatusCode.BadRequest, "Bad request – your input is invalid."),
-                    KeyNotFoundException => ((int)HttpStatusCode.NotFound, "Resource not found."),
-                    UnauthorizedAccessException => ((int)HttpStatusCode.Unauthorized, "Unauthorized – you do not have access."),
-                    _ => ((int)HttpStatusCode.InternalServerError, "Something went wrong! Please try again later.")
-                };
-
-                context.Response.StatusCode = statusCode;
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
-
-                var errorResponse = new ApiResponse<object>(
-                    status: statusCode == (int)HttpStatusCode.InternalServerError ? "failed" : "error",
-                    result: null,
-                    error: true,
-                    message: _env.IsDevelopment() ? $"{message} Details: {ex.Message}" : message
+                await context.Response.WriteAsJsonAsync(
+                    new ApiResponse<string>(false, null,
+                        _env.IsDevelopment() ? $"Something went wrong. Details: {ex.Message}" : "Something went wrong! Please try again later.")
                 );
-
-                var json = JsonSerializer.Serialize(errorResponse, new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    WriteIndented = true
-                });
-
-                await context.Response.WriteAsync(json);
             }
         }
+
+        private static (HttpStatusCode, string) MapDbUpdateException(DbUpdateException ex)
+        {
+            if (ex.InnerException is SqlException sqlEx)
+            {
+                if (sqlEx.Number == 2601 || sqlEx.Number == 2627)
+                {
+                    // Extract which column caused the error
+                    var message = sqlEx.Message;
+
+                    string fieldName = "Unknown field";
+
+                    // Example: looks for 'IX_Vehicles_VehicleRegistrationNo'
+                    var match = System.Text.RegularExpressions.Regex.Match(message, @"IX_\w+_(\w+)");
+                    if (match.Success)
+                    {
+                        fieldName = match.Groups[1].Value;
+                    }
+
+                    return (HttpStatusCode.Conflict, $"Duplicate value in field '{fieldName}'.");
+                }
+            }
+
+            // Fallback
+            return (HttpStatusCode.BadRequest, ex.InnerException?.Message ?? ex.Message);
+        }
+
     }
 }
+
+
+
+

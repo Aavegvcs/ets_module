@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationETS.Data;
 
@@ -11,9 +12,11 @@ using WebApplicationETS.Data;
 namespace WebApplicationETS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250901105344_UpdateModels2")]
+    partial class UpdateModels2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,20 +275,19 @@ namespace WebApplicationETS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VEHICLETYPECODE"));
 
-                    b.Property<short>("CAPACITY")
+                    b.Property<short?>("CAPACITY")
                         .HasColumnType("smallint");
 
-                    b.Property<int>("CREATEDBY")
+                    b.Property<int?>("CREATEDBY")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CREATEDON")
+                    b.Property<DateTime?>("CREATEDON")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LOCCODE")
+                    b.Property<int?>("LOCCODE")
                         .HasColumnType("int");
 
                     b.Property<string>("VEHICLETYPEDESC")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VEHICLETYPECODE");
