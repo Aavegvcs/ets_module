@@ -2,25 +2,24 @@
 
 namespace WebApplicationETS.Model.Compliances.VehicleCompliances
 {
-    public class lkpBillPlanType
+    public class LkpBillPlanType
     {
         [Key]
-        public string? BPTCODE { get; set; }
+        public string? bptCode { get; set; }
 
         
-        public string? BPTNAME { get; set; }
+        public string? bptName { get; set; }
 
        
-        public bool? ACTIVE { get; set; }
+        public bool? active { get; set; }
 
     
-        public int? createdby { get; set; }
+        public int? createdBy { get; set; }
 
-        public int? ModBy { get; set; }
+        public int? modBy { get; set; }
 
-        public DateTime? ModOn { get; set; }
+        public DateTime? modOn { get; set; }
 
-        [Required(ErrorMessage = "CreatedOn is required.")]
-        public DateTime? createdon { get; set; } = DateTime.UtcNow;
+        public DateTime? createdOn { get; set; } = DateTime.UtcNow;
     }
 }

@@ -1,9 +1,12 @@
-﻿namespace WebApplicationETS.Model.Compliances.VehicleCompliances
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApplicationETS.Model.Compliances.VehicleCompliances
 {
-    public class lkpGPSProvider
+    public class LkpGpsProvider
     {
-        public int GPSProviderCode { get; set; }  // Primary Key
-        public string GPSProviderName { get; set; }  // varchar(100)
-        public bool? Active { get; set; }  // Nullable bit
+        [Key]
+        public int gpsProviderCode { get; set; }  // Primary Key
+        public string gpsProviderName { get; set; }  // varchar(100)
+        public bool? active { get; set; }  // Nullable bit
     }
 }

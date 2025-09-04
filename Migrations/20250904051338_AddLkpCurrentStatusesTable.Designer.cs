@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationETS.Data;
 
@@ -11,9 +12,11 @@ using WebApplicationETS.Data;
 namespace WebApplicationETS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250904051338_AddLkpCurrentStatusesTable")]
+    partial class AddLkpCurrentStatusesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,26 +92,6 @@ namespace WebApplicationETS.Migrations
                     b.HasKey("fuelTypeCode");
 
                     b.ToTable("LkpFuelTypes");
-                });
-
-            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpGpsProvider", b =>
-                {
-                    b.Property<int>("gpsProviderCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("gpsProviderCode"));
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("gpsProviderName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("gpsProviderCode");
-
-                    b.ToTable("LkpGpsProviders");
                 });
 
             modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpVehicleModel", b =>

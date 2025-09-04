@@ -5,11 +5,11 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleT
 {
     public interface IVehicleTypeService
     {
-        Task<ApiResponse<lkpVehicleType>> AddVehicleTypeAsync(lkpVehicleType vehicleType);
-        Task<ApiResponse<lkpVehicleType>> getVehicleTypeByidAsync(int VEHICLETYPECODE);
-        Task<ApiResponse<List<lkpVehicleType>>> getVehicleTypeAsync();
-        Task<ApiResponse<lkpVehicleType>> updateVehicleTypeByidAsync(int VEHICLETYPECODE, lkpVehicleType updatedVehicleType);
-        Task<ApiResponse<lkpVehicleType>> deleteVehicleTypeByidAsync(int VEHICLETYPECODE);
+        Task<ApiResponse<LkpVehicleType>> AddVehicleTypeAsync(LkpVehicleType vehicleType);
+        Task<ApiResponse<LkpVehicleType>> getVehicleTypeByidAsync(int VEHICLETYPECODE);
+        Task<ApiResponse<List<LkpVehicleType>>> getVehicleTypeAsync();
+        Task<ApiResponse<LkpVehicleType>> updateVehicleTypeByidAsync(int VEHICLETYPECODE, LkpVehicleType updatedVehicleType);
+        Task<ApiResponse<LkpVehicleType>> deleteVehicleTypeByidAsync(int VEHICLETYPECODE);
 
     }
 }

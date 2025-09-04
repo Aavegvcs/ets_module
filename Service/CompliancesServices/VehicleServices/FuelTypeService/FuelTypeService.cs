@@ -14,73 +14,73 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.FuelType
             _context = context;
         }
 
-        public async Task<ApiResponse<lkpFuelType>> AddFuelTypeAsync(lkpFuelType fuelType)
+        public async Task<ApiResponse<LkpFuelType>> AddFuelTypeAsync(LkpFuelType fuelType)
         {
            if(fuelType == null)
             {
-                return new ApiResponse<lkpFuelType>(false, null, "Invalid fuel type data");
+                return new ApiResponse<LkpFuelType>(false, null, "Invalid fuel type data");
             }
-            _context.lkpFuelTypes.Add(fuelType);
+            _context.LkpFuelTypes.Add(fuelType);
             await _context.SaveChangesAsync();
-            return new ApiResponse<lkpFuelType>(true, fuelType, "Fuel type added successfully");
+            return new ApiResponse<LkpFuelType>(true, fuelType, "Fuel type added successfully");
         }
 
-       public async Task<ApiResponse<lkpFuelType>> getFuelTypeByidAsync(int id)
+       public async Task<ApiResponse<LkpFuelType>> getFuelTypeByidAsync(int id)
         {
             if(id==null)
             {
-                return new ApiResponse<lkpFuelType>(false, null, "Invalid fuel type id");
+                return new ApiResponse<LkpFuelType>(false, null, "Invalid fuel type id");
             }
-            var fuelType = await _context.lkpFuelTypes.FindAsync(id);
+            var fuelType = await _context.LkpFuelTypes.FindAsync(id);
             if(fuelType == null)
             {
-                return new ApiResponse<lkpFuelType>(false, null, "Fuel type not found");
+                return new ApiResponse<LkpFuelType>(false, null, "Fuel type not found");
             }
-            return new ApiResponse<lkpFuelType>(true, fuelType, "Fuel type fetched successfully");
+            return new ApiResponse<LkpFuelType>(true, fuelType, "Fuel type fetched successfully");
         }
-        public async Task<ApiResponse<List<lkpFuelType>>> getFuelTypeAsync()
+        public async Task<ApiResponse<List<LkpFuelType>>> getFuelTypeAsync()
         {
-            var fuelTypes = await _context.lkpFuelTypes.ToListAsync();
+            var fuelTypes = await _context.LkpFuelTypes.ToListAsync();
             if(fuelTypes == null || fuelTypes.Count == 0)
             {
-                return new ApiResponse<List<lkpFuelType>>(false, null, "No fuel type found");
+                return new ApiResponse<List<LkpFuelType>>(false, null, "No fuel type found");
             }
-            return new ApiResponse<List<lkpFuelType>>(true, fuelTypes, "Fuel types fetched successfully");
+            return new ApiResponse<List<LkpFuelType>>(true, fuelTypes, "Fuel types fetched successfully");
         }
-        public async Task<ApiResponse<lkpFuelType>> updateFuelTypeByidAsync(int id, lkpFuelType updatedFuelType)
+        public async Task<ApiResponse<LkpFuelType>> updateFuelTypeByidAsync(int id, LkpFuelType updatedFuelType)
         {
             if(id==null || updatedFuelType == null)
             {
-                return new ApiResponse<lkpFuelType>(false, null, "Invalid fuel type data");
+                return new ApiResponse<LkpFuelType>(false, null, "Invalid fuel type data");
             }
-            var existingFuelType = await _context.lkpFuelTypes.FindAsync(id);
+            var existingFuelType = await _context.LkpFuelTypes.FindAsync(id);
             if(existingFuelType == null)
             {
-                return new ApiResponse<lkpFuelType>(false, null, "Fuel type not found");
+                return new ApiResponse<LkpFuelType>(false, null, "Fuel type not found");
             }
             
-            existingFuelType.FuelTypeName=updatedFuelType.FuelTypeName;
-            existingFuelType.Active=updatedFuelType.Active;
+            existingFuelType.fuelTypeName=updatedFuelType.fuelTypeName;
+            existingFuelType.active=updatedFuelType.active;
 
             await _context.SaveChangesAsync();
-            return new ApiResponse<lkpFuelType>(true, existingFuelType, "Fuel type updated successfully");
+            return new ApiResponse<LkpFuelType>(true, existingFuelType, "Fuel type updated successfully");
 
         }
-     public async   Task<ApiResponse<lkpFuelType>> deleteFuelTypeByid(int id)
+     public async   Task<ApiResponse<LkpFuelType>> deleteFuelTypeByid(int id)
         {
             if(id==null)
             {
-                return new ApiResponse<lkpFuelType>(false, null, "Invalid fuel type id");
+                return new ApiResponse<LkpFuelType>(false, null, "Invalid fuel type id");
             }
-            var deletedFuelType = await _context.lkpFuelTypes
-                .Where(x=> x.FuelTypeCode == id)
+            var deletedFuelType = await _context.LkpFuelTypes
+                .Where(x=> x.fuelTypeCode == id)
                 .ExecuteDeleteAsync();
 
             if(deletedFuelType == 0)
             {
-                    return new ApiResponse<lkpFuelType>(false, null, "Fuel type not found or already deleted");
+                    return new ApiResponse<LkpFuelType>(false, null, "Fuel type not found or already deleted");
             }
-            return new ApiResponse<lkpFuelType>(true, null, "Fuel type deleted successfully");
+            return new ApiResponse<LkpFuelType>(true, null, "Fuel type deleted successfully");
         }
 
     }

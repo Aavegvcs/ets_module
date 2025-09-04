@@ -2,15 +2,20 @@
 
 namespace WebApplicationETS.Model.Compliances.VehicleCompliances
 {
-    public class lkpVehicleType
+    public class LkpVehicleType
     {
         [Key]
-        public int VEHICLETYPECODE { get; set; }
-        public int LOCCODE { get; set; } //?
+        
+        public int vehicleTypeCode { get; set; }
+        public int locCode { get; set; } //?
+        
+        public string vehicleTypeDesc { get; set; }
+        public short capacity { get; set; }
+        public int createdBy { get; set; }
+        public DateTime createdOn { get; set; }
 
-        public string VEHICLETYPEDESC { get; set; }
-        public short CAPACITY { get; set; }
-        public int CREATEDBY { get; set; }
-        public DateTime CREATEDON { get; set; }
+        public int modBy { get; set; }
+        public DateTime modOn { get; set; }
+
     }
 }

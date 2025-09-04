@@ -15,94 +15,94 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlan
 
         }
        
-        public async Task<ApiResponse<lkpBillPlanType>> AddBillPlanAsync(lkpBillPlanType billPlan)
+        public async Task<ApiResponse<LkpBillPlanType>> AddBillPlanAsync(LkpBillPlanType billPlan)
         {
             if(billPlan == null)
             {
-                return new ApiResponse<lkpBillPlanType>(false, null, "Invalid bill plan data");
+                return new ApiResponse<LkpBillPlanType>(false, null, "Invalid bill plan data");
             }
 
-            _context.lkpBillPlanTypes.Add(billPlan);
+            _context.LkpBillPlanTypes.Add(billPlan);
             await _context.SaveChangesAsync();
-            return new ApiResponse<lkpBillPlanType>(true, billPlan, "Bill plan added successfully");
+            return new ApiResponse<LkpBillPlanType>(true, billPlan, "Bill plan added successfully");
         }
 
 
-        public async Task<ApiResponse<lkpBillPlanType>> getBillPlanByidAsync(string id)
+        public async Task<ApiResponse<LkpBillPlanType>> getBillPlanByidAsync(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
-                return new ApiResponse<lkpBillPlanType>(false, null, "Invalid bill id");
+                return new ApiResponse<LkpBillPlanType>(false, null, "Invalid bill id");
             }
 
-            var billPlan = await _context.lkpBillPlanTypes.FindAsync(id);
+            var billPlan = await _context.LkpBillPlanTypes.FindAsync(id);
 
             if (billPlan == null)
             {
-                return new ApiResponse<lkpBillPlanType>(false, null, "Bill plan not found");
+                return new ApiResponse<LkpBillPlanType>(false, null, "Bill plan not found");
             }
 
-            return new ApiResponse<lkpBillPlanType>(true, billPlan, "Bill plan fetched successfully");
+            return new ApiResponse<LkpBillPlanType>(true, billPlan, "Bill plan fetched successfully");
         }
 
 
-        public async Task<ApiResponse<List<lkpBillPlanType>>> getBillPlanByidAsync()
+        public async Task<ApiResponse<List<LkpBillPlanType>>> getBillPlanByidAsync()
         {
-            var billPlans=await _context.lkpBillPlanTypes.ToListAsync();
+            var billPlans=await _context.LkpBillPlanTypes.ToListAsync();
 
             if(billPlans==null || billPlans.Count == 0)
             {
-                return new ApiResponse<List<lkpBillPlanType>>(false, null, "No bill plan Found");
+                return new ApiResponse<List<LkpBillPlanType>>(false, null, "No bill plan Found");
             }
-            return new ApiResponse<List<lkpBillPlanType>>(true, billPlans, "Bill plan fetched Successfully");
+            return new ApiResponse<List<LkpBillPlanType>>(true, billPlans, "Bill plan fetched Successfully");
 
             
         }
 
-        public async Task<ApiResponse<lkpBillPlanType>> updateBillPlnaByidAsync(string id, lkpBillPlanType updatedPlan)
+        public async Task<ApiResponse<LkpBillPlanType>> updateBillPlnaByidAsync(string id, LkpBillPlanType updatedPlan)
         {
             if (string.IsNullOrEmpty(id))
             {
-                return new ApiResponse<lkpBillPlanType>(false, null, "Invalid bill id");
+                return new ApiResponse<LkpBillPlanType>(false, null, "Invalid bill id");
             }
 
-            var existingPlan = await _context.lkpBillPlanTypes.FindAsync(id);
+            var existingPlan = await _context.LkpBillPlanTypes.FindAsync(id);
 
             if (existingPlan == null)
             {
-                return new ApiResponse<lkpBillPlanType>(false, null, "No bill plan Found");
+                return new ApiResponse<LkpBillPlanType>(false, null, "No bill plan Found");
             }
 
-            existingPlan.BPTCODE = updatedPlan.BPTCODE;
-            existingPlan.BPTNAME = updatedPlan.BPTNAME;
-            existingPlan.ACTIVE = updatedPlan.ACTIVE;
-            existingPlan.ModBy = updatedPlan.ModBy;
-            existingPlan.ModOn = DateTime.UtcNow;
+            existingPlan.bptCode = updatedPlan.bptCode;
+            existingPlan.bptName = updatedPlan.bptName;
+            existingPlan.active = updatedPlan.active;
+            existingPlan.modBy = updatedPlan.modBy;
+            existingPlan.modOn = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
 
-            return new ApiResponse<lkpBillPlanType>(true, existingPlan, "Bill plan updated successfully");
+            return new ApiResponse<LkpBillPlanType>(true, existingPlan, "Bill plan updated successfully");
         }
 
 
-        public async Task<ApiResponse<lkpBillPlanType>> deleteBillPlanByid(string id)
+        public async Task<ApiResponse<LkpBillPlanType>> deleteBillPlanByid(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
-                return new ApiResponse<lkpBillPlanType>(false, null, "Invalid bill id");
+                return new ApiResponse<LkpBillPlanType>(false, null, "Invalid bill id");
             }
 
             // Delete by filter
-            var deletedCount = await _context.lkpBillPlanTypes
-                .Where(x => x.BPTCODE == id)
+            var deletedCount = await _context.LkpBillPlanTypes
+                .Where(x => x.bptCode == id)
                 .ExecuteDeleteAsync();
 
             if (deletedCount == 0)
             {
-                return new ApiResponse<lkpBillPlanType>(false, null, "Bill plan not found");
+                return new ApiResponse<LkpBillPlanType>(false, null, "Bill plan not found");
             }
 
-            return new ApiResponse<lkpBillPlanType>(true, null, "Bill plan deleted successfully");
+            return new ApiResponse<LkpBillPlanType>(true, null, "Bill plan deleted successfully");
         }
 
     }

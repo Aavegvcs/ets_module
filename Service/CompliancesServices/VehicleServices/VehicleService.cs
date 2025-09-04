@@ -27,5 +27,6 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices
             return new ApiResponse<Vehicle>(true, vehicle, "Vehicle added successfully");
         }
 
+
     }
 }

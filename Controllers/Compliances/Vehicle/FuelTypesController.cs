@@ -7,12 +7,12 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FuelTypeController : ControllerBase
+    public class FuelTypesController : ControllerBase
     {
        
         private readonly IFuelTypeService fuelTypeService;
 
-        public FuelTypeController(IFuelTypeService fuelTypeService)
+        public FuelTypesController(IFuelTypeService fuelTypeService)
         {
             this.fuelTypeService = fuelTypeService;
         }
@@ -29,7 +29,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         }
 
         [HttpPost]
-        public async Task<IActionResult> addFuel([FromBody] lkpFuelType fuelType)
+        public async Task<IActionResult> addFuel([FromBody] LkpFuelType fuelType)
         {
             var response = await fuelTypeService.AddFuelTypeAsync(fuelType);
 
@@ -40,7 +40,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
             return CreatedAtAction(nameof(addFuel), response);
         }
 
-        [HttpGet("byId")]
+        [HttpGet("id")]
         public async Task<IActionResult> getFuelTypeById([FromQuery] int FuelTypeCode)
         {
             var response = await fuelTypeService.getFuelTypeByidAsync(FuelTypeCode);
@@ -53,7 +53,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         }
 
         [HttpPut]
-        public async Task<IActionResult> updateFuelTypeById([FromQuery] int FuelTypeCode , lkpFuelType fuelType)
+        public async Task<IActionResult> updateFuelTypeById([FromQuery] int FuelTypeCode , LkpFuelType fuelType)
         {
             var response = await fuelTypeService.updateFuelTypeByidAsync(FuelTypeCode, fuelType);
 
@@ -74,7 +74,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
             {
                 return BadRequest(response);
             }
-            return Ok(response);
+            return NoContent();
         }
 
     }

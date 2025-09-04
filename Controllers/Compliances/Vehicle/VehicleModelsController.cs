@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApplicationETS.Model.Compliances.VehicleCompliances;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleModelService;
 
 namespace WebApplicationETS.Controllers.Compliances.Vehicle
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehicleModelController : ControllerBase
+    public class VehicleModelsController : ControllerBase
     {
         private readonly IVehicleModelService vehicleModelService;
 
-        public VehicleModelController(IVehicleModelService vehicleModelService)
+        public VehicleModelsController(IVehicleModelService vehicleModelService)
         {
             this.vehicleModelService = vehicleModelService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddVehicleModel([FromBody] Model.Compliances.VehicleCompliances.lkpVehicleModel vehicleModel)
+        public async Task<IActionResult> AddVehicleModel([FromBody] LkpVehicleModel vehicleModel)
         {
             var response = await vehicleModelService.AddVehicleModelAsync(vehicleModel);
             if (!response.Status)
@@ -24,7 +25,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
             return CreatedAtAction(nameof(AddVehicleModel), response);
         }
 
-        [HttpGet("byId")]
+        [HttpGet("id")]
         public async Task<IActionResult> getVehicleModelByidAsync([FromQuery] int MODELID)
         {
             var response = await vehicleModelService.getVehicleModelByidAsync(MODELID);
@@ -47,7 +48,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         }
 
         [HttpPut]
-        public async Task<IActionResult> updateVehicleModelByid([FromQuery] int MODELID, Model.Compliances.VehicleCompliances.lkpVehicleModel updatedVehicleModel)
+        public async Task<IActionResult> updateVehicleModelByid([FromQuery] int MODELID, Model.Compliances.VehicleCompliances.LkpVehicleModel updatedVehicleModel)
         {
             var response = await vehicleModelService.updateVehicleModelByidAsync(MODELID, updatedVehicleModel);
             if (!response.Status)
@@ -63,7 +64,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
             if (!response.Status)
                 return BadRequest(response);
 
-            return Ok(response);
+            return NoContent();
         }
 
     }

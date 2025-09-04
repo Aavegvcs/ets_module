@@ -7,11 +7,11 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehicleTypeController : ControllerBase
+    public class VehicleTypesController : ControllerBase
     {
         private readonly IVehicleTypeService vehicleTypeService;
 
-        public VehicleTypeController(IVehicleTypeService vehicleTypeService)
+        public VehicleTypesController(IVehicleTypeService vehicleTypeService)
         {
             this.vehicleTypeService = vehicleTypeService;
         }
@@ -28,7 +28,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         }
 
         [HttpPost]
-        public async Task<IActionResult> addVehicleType([FromBody] lkpVehicleType vehicleType)
+        public async Task<IActionResult> addVehicleType([FromBody] LkpVehicleType vehicleType)
         {
             var response = await vehicleTypeService.AddVehicleTypeAsync(vehicleType);
             if (!response.Status)
@@ -38,7 +38,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
             return CreatedAtAction(nameof(addVehicleType), response);
         }
 
-        [HttpGet("byId")]
+        [HttpGet("id")]
         public async Task<IActionResult> getVehicleTypeById([FromQuery] int VehicleTypeCode)
         {
             var response = await vehicleTypeService.getVehicleTypeByidAsync(VehicleTypeCode);
@@ -50,7 +50,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         }
 
         [HttpPut]
-        public async Task<IActionResult> updateVehicleTypeById([FromQuery] int VehicleTypeCode, lkpVehicleType vehicleType)
+        public async Task<IActionResult> updateVehicleTypeById([FromQuery] int VehicleTypeCode, LkpVehicleType vehicleType)
         {
             var response = await vehicleTypeService.updateVehicleTypeByidAsync(VehicleTypeCode, vehicleType);
             if (!response.Status)
@@ -68,7 +68,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
             {
                 return BadRequest(response);
             }
-            return Ok(response);
+            return NoContent();
         }
 
     }

@@ -2,13 +2,14 @@
 
 namespace WebApplicationETS.Model.Compliances.VehicleCompliances
 {
-    public class LkpVehicleStatus
+    public class LkpCurrentStatus
     {
+
         [Key]
-        public int vehicleStatusCode { get; set; }   // e.g. 1,2,3,4,5,6,7
+        public int currentStatusCode { get; set; }   // e.g. 1,2,3,4
 
         [StringLength(100)]
-        public string vehicleStatusName { get; set; }   // e.g. Available, Assigned, Login, Logout, etc.
+        public string currentStatusName { get; set; }   // e.g. Active, InActive, BlackListed, Relieved
 
         public bool? active { get; set; }   // 1 = Active, 0 = Inactive
     }

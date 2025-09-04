@@ -5,10 +5,10 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.FuelType
 {
     public interface IFuelTypeService
     {
-        Task<ApiResponse<lkpFuelType>> AddFuelTypeAsync(lkpFuelType fuelType);
-        Task<ApiResponse<lkpFuelType>> getFuelTypeByidAsync(int id);
-        Task<ApiResponse<List<lkpFuelType>>> getFuelTypeAsync();
-        Task<ApiResponse<lkpFuelType>> updateFuelTypeByidAsync(int id, lkpFuelType updatedFuelType);
-        Task<ApiResponse<lkpFuelType>> deleteFuelTypeByid(int id);
+        Task<ApiResponse<LkpFuelType>> AddFuelTypeAsync(LkpFuelType fuelType);
+        Task<ApiResponse<LkpFuelType>> getFuelTypeByidAsync(int id);
+        Task<ApiResponse<List<LkpFuelType>>> getFuelTypeAsync();
+        Task<ApiResponse<LkpFuelType>> updateFuelTypeByidAsync(int id, LkpFuelType updatedFuelType);
+        Task<ApiResponse<LkpFuelType>> deleteFuelTypeByid(int id);
     }
 }

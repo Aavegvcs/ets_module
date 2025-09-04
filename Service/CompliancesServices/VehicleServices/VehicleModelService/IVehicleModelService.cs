@@ -6,10 +6,10 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleM
     public interface IVehicleModelService
     {
 
-        Task<ApiResponse<lkpVehicleModel>> AddVehicleModelAsync(lkpVehicleModel vehicleModel);
-        Task<ApiResponse<lkpVehicleModel>> getVehicleModelByidAsync(int MODELID);
-        Task<ApiResponse<List<lkpVehicleModel>>> getVehicleModelAsync();
-        Task<ApiResponse<lkpVehicleModel>> updateVehicleModelByidAsync(int MODELID, lkpVehicleModel updatedVehicleModel);
-        Task<ApiResponse<lkpVehicleModel>> deleteVehicleModelByid(int MODELID);
+        Task<ApiResponse<LkpVehicleModel>> AddVehicleModelAsync(LkpVehicleModel vehicleModel);
+        Task<ApiResponse<LkpVehicleModel>> getVehicleModelByidAsync(int MODELID);
+        Task<ApiResponse<List<LkpVehicleModel>>> getVehicleModelAsync();
+        Task<ApiResponse<LkpVehicleModel>> updateVehicleModelByidAsync(int MODELID, LkpVehicleModel updatedVehicleModel);
+        Task<ApiResponse<LkpVehicleModel>> deleteVehicleModelByid(int MODELID);
     }
 }

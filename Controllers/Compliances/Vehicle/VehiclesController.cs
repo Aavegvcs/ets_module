@@ -9,17 +9,17 @@ namespace WebApplicationETS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehicleController : ControllerBase
+    public class VehiclesController : ControllerBase
     {
 
         private readonly IVehicleService _vehicleService;
 
-        public VehicleController(IVehicleService vehicleService)
+        public VehiclesController(IVehicleService vehicleService)
         {
             _vehicleService = vehicleService;
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<IActionResult> AddVehicle([FromBody] Vehicle vehicle)
         {
             var response = await _vehicleService.AddVehicleAsync(vehicle);
@@ -29,6 +29,7 @@ namespace WebApplicationETS.Controllers
 
             return CreatedAtAction(nameof(AddVehicle), response);
         }
+
 
     }
 }

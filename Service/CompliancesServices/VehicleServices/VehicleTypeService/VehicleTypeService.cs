@@ -15,74 +15,76 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleT
             _context = context;
         }
 
-      public async  Task<ApiResponse<lkpVehicleType>> AddVehicleTypeAsync(lkpVehicleType vehicleType)
+      public async  Task<ApiResponse<LkpVehicleType>> AddVehicleTypeAsync(LkpVehicleType vehicleType)
         {
             if(vehicleType == null)
             {
-               return new ApiResponse<lkpVehicleType>(false, null, "Invalid vehicle type data");
+               return new ApiResponse<LkpVehicleType>(false, null, "Invalid vehicle type data");
             }
-            _context.lkpVehicleTypes.Add(vehicleType);
+            _context.LkpVehicleTypes.Add(vehicleType);
             await _context.SaveChangesAsync();
-            return new ApiResponse<lkpVehicleType>(true, vehicleType, "Vehicle type added successfully");
+            return new ApiResponse<LkpVehicleType>(true, vehicleType, "Vehicle type added successfully");
         }
 
-     public async Task<ApiResponse<lkpVehicleType>> getVehicleTypeByidAsync(int VEHICLETYPECODE)
+     public async Task<ApiResponse<LkpVehicleType>> getVehicleTypeByidAsync(int VEHICLETYPECODE)
         {
             if(VEHICLETYPECODE == null)
             {
-                return new ApiResponse<lkpVehicleType>(false, null, "Invalid vehicle type id");
+                return new ApiResponse<LkpVehicleType>(false, null, "Invalid vehicle type id");
             }
-            var vehicleType = await _context.lkpVehicleTypes.FindAsync(VEHICLETYPECODE);
+            var vehicleType = await _context.LkpVehicleTypes.FindAsync(VEHICLETYPECODE);
             if(vehicleType == null)
             {
-                return new ApiResponse<lkpVehicleType>(false, null, "Vehicle type not found");
+                return new ApiResponse<LkpVehicleType>(false, null, "Vehicle type not found");
             }
-            return new ApiResponse<lkpVehicleType>(true, vehicleType, "Vehicle type fetched successfully");
+            return new ApiResponse<LkpVehicleType>(true, vehicleType, "Vehicle type fetched successfully");
         }
-      public  async Task<ApiResponse<List<lkpVehicleType>>> getVehicleTypeAsync()
+      public  async Task<ApiResponse<List<LkpVehicleType>>> getVehicleTypeAsync()
         {
-            var vehicleTypes = await _context.lkpVehicleTypes.ToListAsync();
+            var vehicleTypes = await _context.LkpVehicleTypes.ToListAsync();
             if(vehicleTypes == null || vehicleTypes.Count == 0)
             {
-                return new ApiResponse<List<lkpVehicleType>>(false, null, "No vehicle type found");
+                return new ApiResponse<List<LkpVehicleType>>(false, null, "No vehicle type found");
             }
-            return new ApiResponse<List<lkpVehicleType>>(true, vehicleTypes, "Vehicle types fetched successfully");
+            return new ApiResponse<List<LkpVehicleType>>(true, vehicleTypes, "Vehicle types fetched successfully");
         }
-      public  async Task<ApiResponse<lkpVehicleType>> updateVehicleTypeByidAsync(int VEHICLETYPECODE, lkpVehicleType updatedVehicleType)
+      public  async Task<ApiResponse<LkpVehicleType>> updateVehicleTypeByidAsync(int VEHICLETYPECODE, LkpVehicleType updatedVehicleType)
         {
             if(VEHICLETYPECODE == null || updatedVehicleType == null)
             {
-                return new ApiResponse<lkpVehicleType>(false, null, "Invalid vehicle type data");
+                return new ApiResponse<LkpVehicleType>(false, null, "Invalid vehicle type data");
             }
-            var existingVehicleType = await _context.lkpVehicleTypes.FindAsync(VEHICLETYPECODE);
+            var existingVehicleType = await _context.LkpVehicleTypes.FindAsync(VEHICLETYPECODE);
             if(existingVehicleType == null)
             {
-                return new ApiResponse<lkpVehicleType>(false, null, "Vehicle type not found");
+                return new ApiResponse<LkpVehicleType>(false, null, "Vehicle type not found");
             }
-            existingVehicleType.LOCCODE = updatedVehicleType.LOCCODE;
-            existingVehicleType.VEHICLETYPEDESC = updatedVehicleType.VEHICLETYPEDESC;
-            existingVehicleType.CAPACITY = updatedVehicleType.CAPACITY;
-            existingVehicleType.CREATEDBY= updatedVehicleType.CREATEDBY;
+            existingVehicleType.locCode = updatedVehicleType.locCode;
+            existingVehicleType.vehicleTypeDesc = updatedVehicleType.vehicleTypeDesc;
+            existingVehicleType.capacity = updatedVehicleType.capacity;
+            existingVehicleType.modBy = updatedVehicleType.modBy;
+            existingVehicleType.modOn = updatedVehicleType.modOn;
 
-            _context.lkpVehicleTypes.Update(existingVehicleType);
+
+            _context.LkpVehicleTypes.Update(existingVehicleType);
             await _context.SaveChangesAsync();
-            return new ApiResponse<lkpVehicleType>(true, existingVehicleType, "Vehicle type updated successfully");
+            return new ApiResponse<LkpVehicleType>(true, existingVehicleType, "Vehicle type updated successfully");
         }
 
-        public async Task<ApiResponse<lkpVehicleType>> deleteVehicleTypeByidAsync(int VEHICLETYPECODE)
+        public async Task<ApiResponse<LkpVehicleType>> deleteVehicleTypeByidAsync(int VEHICLETYPECODE)
         {
             if(VEHICLETYPECODE == null)
             {
-                return new ApiResponse<lkpVehicleType>(false, null, "Invalid vehicle type id");
+                return new ApiResponse<LkpVehicleType>(false, null, "Invalid vehicle type id");
             }
-            var existingVehicleType = await _context.lkpVehicleTypes.FindAsync(VEHICLETYPECODE);
+            var existingVehicleType = await _context.LkpVehicleTypes.FindAsync(VEHICLETYPECODE);
             if(existingVehicleType == null)
             {
-                return new ApiResponse<lkpVehicleType>(false, null, "Vehicle type not found");
+                return new ApiResponse<LkpVehicleType>(false, null, "Vehicle type not found");
             }
-            _context.lkpVehicleTypes.Remove(existingVehicleType);
+            _context.LkpVehicleTypes.Remove(existingVehicleType);
             await _context.SaveChangesAsync();
-            return new ApiResponse<lkpVehicleType>(true, existingVehicleType, "Vehicle type deleted successfully");
+            return new ApiResponse<LkpVehicleType>(true, existingVehicleType, "Vehicle type deleted successfully");
         }
 
     }

@@ -7,18 +7,18 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BillPlanController : ControllerBase
+    public class BillPlansController : ControllerBase
     {
 
         private readonly IBillPlanService billPlanService;
 
-        public BillPlanController(IBillPlanService billPlanService)
+        public BillPlansController(IBillPlanService billPlanService)
         {
             this.billPlanService = billPlanService;
         }
         
         [HttpPost]
-        public async Task<IActionResult> AddBillPan([FromBody] lkpBillPlanType billPlan)
+        public async Task<IActionResult> AddBillPan([FromBody] LkpBillPlanType billPlan)
         {
             var response = await billPlanService.AddBillPlanAsync(billPlan);
 
@@ -28,7 +28,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
             return CreatedAtAction(nameof(AddBillPan), response);
         }
 
-        [HttpGet("byId")]
+        [HttpGet("id")]
         public async Task<IActionResult> getBillPlanById([FromQuery] string id)
         {
             var response =await billPlanService.getBillPlanByidAsync(id);
@@ -54,7 +54,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         }
 
         [HttpPut]
-        public async Task<IActionResult> updateBillPlanByid([FromQuery] string id, lkpBillPlanType updatedPlan)
+        public async Task<IActionResult> updateBillPlanByid([FromQuery] string id, LkpBillPlanType updatedPlan)
         {
             var response = await billPlanService.updateBillPlnaByidAsync(id, updatedPlan);
 
@@ -75,7 +75,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
                 return BadRequest(response);
             }
 
-            return Ok(response);
+            return NoContent();
         }
 
 

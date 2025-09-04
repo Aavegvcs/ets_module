@@ -4,8 +4,11 @@ using WebApplicationETS.Data;
 using WebApplicationETS.Middleware;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlanService;
+using WebApplicationETS.Service.CompliancesServices.VehicleServices.CurrentStatusService;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.FuelTypeService;
+using WebApplicationETS.Service.CompliancesServices.VehicleServices.GpsProviderService;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleModelService;
+using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleStatusService;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleTypeService; // ✅ Correct namespace for DataContext
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +34,9 @@ builder.Services.AddScoped<IBillPlanService, BillPlanService>();
 builder.Services.AddScoped<IFuelTypeService,FuelTypeService>();
 builder.Services.AddScoped<IVehicleModelService, VehicleModelService>();
 builder.Services.AddScoped<IVehicleTypeService,VehicleTypeService>();
+builder.Services.AddScoped<IVehicleStatusService, VehicleStatusService>();
+builder.Services.AddScoped<ICurrentStatusService, CurrentStatusService>();
+builder.Services.AddScoped<IGpsProviderService, GpsProviderService>();
 
 // Register EF Core DbContext
 builder.Services.AddDbContext<DataContext>(options =>

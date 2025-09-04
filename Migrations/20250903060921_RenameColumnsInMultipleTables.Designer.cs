@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationETS.Data;
 
@@ -11,9 +12,11 @@ using WebApplicationETS.Data;
 namespace WebApplicationETS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250903060921_RenameColumnsInMultipleTables")]
+    partial class RenameColumnsInMultipleTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,27 +53,6 @@ namespace WebApplicationETS.Migrations
                     b.ToTable("LkpBillPlanTypes");
                 });
 
-            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpCurrentStatus", b =>
-                {
-                    b.Property<int>("currentStatusCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("currentStatusCode"));
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("currentStatusName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("currentStatusCode");
-
-                    b.ToTable("LkpCurrentStatuses");
-                });
-
             modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpFuelType", b =>
                 {
                     b.Property<int>("fuelTypeCode")
@@ -89,26 +71,6 @@ namespace WebApplicationETS.Migrations
                     b.HasKey("fuelTypeCode");
 
                     b.ToTable("LkpFuelTypes");
-                });
-
-            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpGpsProvider", b =>
-                {
-                    b.Property<int>("gpsProviderCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("gpsProviderCode"));
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("gpsProviderName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("gpsProviderCode");
-
-                    b.ToTable("LkpGpsProviders");
                 });
 
             modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpVehicleModel", b =>
@@ -140,27 +102,6 @@ namespace WebApplicationETS.Migrations
                     b.HasKey("modelId");
 
                     b.ToTable("LkpVehicleModels");
-                });
-
-            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpVehicleStatus", b =>
-                {
-                    b.Property<int>("vehicleStatusCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("vehicleStatusCode"));
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("vehicleStatusName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("vehicleStatusCode");
-
-                    b.ToTable("LkpVehicleStatuses");
                 });
 
             modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpVehicleType", b =>

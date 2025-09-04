@@ -15,11 +15,17 @@ namespace WebApplicationETS.Data
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
 
-        public DbSet<lkpBillPlanType> lkpBillPlanTypes { get; set; }
-        public DbSet<lkpFuelType> lkpFuelTypes { get; set; }
+        public DbSet<LkpBillPlanType> LkpBillPlanTypes { get; set; }
+        public DbSet<LkpFuelType> LkpFuelTypes { get; set; }
 
-        public DbSet<lkpVehicleType> lkpVehicleTypes { get; set; }
+        public DbSet<LkpVehicleType> LkpVehicleTypes { get; set; }
 
-        public DbSet<lkpVehicleModel> lkpVehicleModels { get; set; }
+        public DbSet<LkpVehicleModel> LkpVehicleModels { get; set; }
+
+        public DbSet<LkpVehicleStatus> LkpVehicleStatuses { get; set; }
+        public DbSet<LkpCurrentStatus> LkpCurrentStatuses { get; set; }
+
+        public DbSet<LkpGpsProvider> LkpGpsProviders { get; set; }
     }
+
 }

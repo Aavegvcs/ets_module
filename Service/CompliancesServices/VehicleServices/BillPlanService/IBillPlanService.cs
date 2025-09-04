@@ -6,13 +6,13 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlan
     public interface IBillPlanService
     {
 
-        Task<ApiResponse<lkpBillPlanType>> AddBillPlanAsync(lkpBillPlanType billPlan);
-        Task<ApiResponse<lkpBillPlanType>> getBillPlanByidAsync(string id);
+        Task<ApiResponse<LkpBillPlanType>> AddBillPlanAsync(LkpBillPlanType billPlan);
+        Task<ApiResponse<LkpBillPlanType>> getBillPlanByidAsync(string id);
 
-        Task<ApiResponse<List<lkpBillPlanType>>> getBillPlanByidAsync();
+        Task<ApiResponse<List<LkpBillPlanType>>> getBillPlanByidAsync();
 
-        Task<ApiResponse<lkpBillPlanType>> updateBillPlnaByidAsync(string id, lkpBillPlanType updatedPlan);
+        Task<ApiResponse<LkpBillPlanType>> updateBillPlnaByidAsync(string id, LkpBillPlanType updatedPlan);
 
-        Task<ApiResponse<lkpBillPlanType>> deleteBillPlanByid(string id);
+        Task<ApiResponse<LkpBillPlanType>> deleteBillPlanByid(string id);
     }
 }
