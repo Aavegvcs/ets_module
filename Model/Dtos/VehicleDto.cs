@@ -1,63 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WebApplicationETS.Model.Compliances.VehicleCompliances
+﻿namespace WebApplicationETS.Model.DTOs
 {
-    [Index(nameof(vehicleRegistrationNo), IsUnique = true)]
-    public class Vehicle
+    public class VehicleDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int vehicleId { get; set; }
-
-        // Vehicle registration number (must be unique & not empty)
-      
-        
         public string vehicleRegistrationNo { get; set; } = string.Empty;
 
-        // Vehicle type reference (lookup table)
-      
         public int vehicleTypeCode { get; set; }
-
-      
         public int transporterId { get; set; }
-
         public int bpId { get; set; }
 
-       
         public string? trackeeId { get; set; }
-
-      
         public string? trackeeName { get; set; }
 
-        
         public int vehicleStatus { get; set; }
-
-       
         public int locCode { get; set; }
 
-        
         public DateTime vehicleRegistrationDate { get; set; }
-
         public DateTime? vehicleInductionDate { get; set; }
-
-       
         public DateTime registrationExpDate { get; set; }
-
         public DateTime? firstAidKidDate { get; set; }
         public DateTime? fireExtinguisherDate { get; set; }
 
-        
         public int driverId { get; set; }
-
-        
-        public string? Make { get; set; }
-
-       
-        public int model { get; set; } 
-
-       
+        public string? make { get; set; }
+        public int model { get; set; }
         public string chassisNo { get; set; } = string.Empty;
 
         public DateTime? permitExpiryDate { get; set; }
@@ -66,51 +31,34 @@ namespace WebApplicationETS.Model.Compliances.VehicleCompliances
         public DateTime? roadTaxValidityExpiry { get; set; }
         public DateTime? pucExpiryDate { get; set; }
 
-        
         public int? kmsRunBeforeOnboarding { get; set; }
-
-        
         public string? insuranceAgencyName { get; set; }
-
-  
         public string? ownerName { get; set; }
-
         public DateTime? ccpermitDate { get; set; }
-
         public string? ownerAddress { get; set; }
-
-      
         public string? ownerType { get; set; }
 
         public DateTime? validTokenTaxDate { get; set; }
         public DateTime? passengerTaxDate { get; set; }
+
         public bool? isGpsInstalled { get; set; }
         public DateTime? gpsInstallationDate { get; set; }
         public int? gpsProviderCode { get; set; }
 
-       
         public int fuelTypeCode { get; set; }
-
         public bool? cngEndorsementInRc { get; set; }
         public int? currentStatus { get; set; }
         public bool? mandatorySignage { get; set; }
 
- 
         public string? engineCapacityCc { get; set; }
 
         public int? modBy { get; set; }
         public DateTime? modOn { get; set; }
         public DateTime? makeYear { get; set; }
 
-        [StringLength(500)]
         public string? remarks { get; set; }
 
-        
-        public DateTime createdOn { get; set; } = DateTime.UtcNow;
-
-       
+        public DateTime createdOn { get; set; }
         public int createdBy { get; set; }
-
-     
     }
 }

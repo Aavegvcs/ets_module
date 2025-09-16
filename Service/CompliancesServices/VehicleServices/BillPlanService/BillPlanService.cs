@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplicationETS.Data;
 using WebApplicationETS.Model.Compliances.VehicleCompliances;
+using WebApplicationETS.Model.Dtos;
+using WebApplicationETS.Factories;  
 using WebApplicationETS.Model.otherModel;
 
 namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlanService
@@ -8,23 +10,45 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlan
     public class BillPlanService: IBillPlanService
     {
         private readonly DataContext _context;
+        private readonly IBillPlanFactory _billPlanFactory;
 
-        public BillPlanService(DataContext context)
+        public BillPlanService(DataContext context , IBillPlanFactory billPlanFactory)
         {
             _context = context;
+            _billPlanFactory = billPlanFactory;
 
         }
-       
-        public async Task<ApiResponse<LkpBillPlanType>> AddBillPlanAsync(LkpBillPlanType billPlan)
+
+        //public async Task<ApiResponse<LkpBillPlanType>> AddBillPlanAsync(LkpBillPlanType billPlan)
+        //{
+        //    if (billPlan == null)
+        //    {
+        //        return new ApiResponse<LkpBillPlanType>(false, null, "Invalid bill plan data");
+        //    }
+
+        //    _context.LkpBillPlanTypes.Add(billPlan);
+        //    await _context.SaveChangesAsync();
+        //    return new ApiResponse<LkpBillPlanType>(true, billPlan, "Bill plan added successfully");
+        //}
+
+        public async Task<ApiResponse<LkpBillPlanType>> AddBillPlanAsync(BillPlanDto dto)
         {
-            if(billPlan == null)
+
+            // Run through factory validation + mapping
+            var result = _billPlanFactory.Create(dto);
+
+            if (!result.Success)
             {
-                return new ApiResponse<LkpBillPlanType>(false, null, "Invalid bill plan data");
+                return new ApiResponse<LkpBillPlanType>(false, null, result.ErrorMessage);
             }
+
+            var billPlan = result.BillPlan;
 
             _context.LkpBillPlanTypes.Add(billPlan);
             await _context.SaveChangesAsync();
+
             return new ApiResponse<LkpBillPlanType>(true, billPlan, "Bill plan added successfully");
+
         }
 
 
@@ -59,7 +83,7 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlan
             
         }
 
-        public async Task<ApiResponse<LkpBillPlanType>> updateBillPlnaByidAsync(string id, LkpBillPlanType updatedPlan)
+        public async Task<ApiResponse<LkpBillPlanType>> updateBillPlanByidAsync(string id, LkpBillPlanType updatedPlan)
         {
             if (string.IsNullOrEmpty(id))
             {

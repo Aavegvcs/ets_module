@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplicationETS.Model.Compliances.VehicleCompliances;
+using WebApplicationETS.Model.Dtos;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlanService;
 
 namespace WebApplicationETS.Controllers.Compliances.Vehicle
@@ -18,7 +19,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         }
         
         [HttpPost]
-        public async Task<IActionResult> AddBillPan([FromBody] LkpBillPlanType billPlan)
+        public async Task<IActionResult> AddBillPan([FromBody] BillPlanDto billPlan)
         {
             var response = await billPlanService.AddBillPlanAsync(billPlan);
 
@@ -56,7 +57,7 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         [HttpPut]
         public async Task<IActionResult> updateBillPlanByid([FromQuery] string id, LkpBillPlanType updatedPlan)
         {
-            var response = await billPlanService.updateBillPlnaByidAsync(id, updatedPlan);
+            var response = await billPlanService.updateBillPlanByidAsync(id, updatedPlan);
 
             if (!response.Status)
             {

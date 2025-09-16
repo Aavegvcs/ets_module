@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationETS.Data;
+using WebApplicationETS.Factories;
+
+//using WebApplicationETS.Factories;
 using WebApplicationETS.Middleware;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlanService;
@@ -37,6 +40,9 @@ builder.Services.AddScoped<IVehicleTypeService,VehicleTypeService>();
 builder.Services.AddScoped<IVehicleStatusService, VehicleStatusService>();
 builder.Services.AddScoped<ICurrentStatusService, CurrentStatusService>();
 builder.Services.AddScoped<IGpsProviderService, GpsProviderService>();
+builder.Services.AddScoped<IVehicleFactory, VehicleFactory>();
+builder.Services.AddScoped<IBillPlanFactory, BillPlanFactory>();
+
 
 // Register EF Core DbContext
 builder.Services.AddDbContext<DataContext>(options =>

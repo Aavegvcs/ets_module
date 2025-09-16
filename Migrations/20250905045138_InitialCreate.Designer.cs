@@ -12,8 +12,8 @@ using WebApplicationETS.Data;
 namespace WebApplicationETS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250903073148_RenameVehicleStatusTable")]
-    partial class RenameVehicleStatusTable
+    [Migration("20250905045138_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,27 @@ namespace WebApplicationETS.Migrations
                     b.ToTable("LkpBillPlanTypes");
                 });
 
+            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpCurrentStatus", b =>
+                {
+                    b.Property<int>("currentStatusCode")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("currentStatusCode"));
+
+                    b.Property<bool?>("active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("currentStatusName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("currentStatusCode");
+
+                    b.ToTable("LkpCurrentStatuses");
+                });
+
             modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpFuelType", b =>
                 {
                     b.Property<int>("fuelTypeCode")
@@ -71,6 +92,26 @@ namespace WebApplicationETS.Migrations
                     b.HasKey("fuelTypeCode");
 
                     b.ToTable("LkpFuelTypes");
+                });
+
+            modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpGpsProvider", b =>
+                {
+                    b.Property<int>("gpsProviderCode")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("gpsProviderCode"));
+
+                    b.Property<bool?>("active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("gpsProviderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("gpsProviderCode");
+
+                    b.ToTable("LkpGpsProviders");
                 });
 
             modelBuilder.Entity("WebApplicationETS.Model.Compliances.VehicleCompliances.LkpVehicleModel", b =>
@@ -180,8 +221,7 @@ namespace WebApplicationETS.Migrations
 
                     b.Property<string>("chassisNo")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("cngEndorsementInRc")
                         .HasColumnType("bit");
@@ -248,10 +288,8 @@ namespace WebApplicationETS.Migrations
                     b.Property<DateTime?>("modOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("model")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("model")
+                        .HasColumnType("int");
 
                     b.Property<string>("ownerAddress")
                         .HasMaxLength(200)
@@ -285,12 +323,10 @@ namespace WebApplicationETS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("trackeeId")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("trackeeName")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("transporterId")
                         .HasColumnType("int");
@@ -306,8 +342,7 @@ namespace WebApplicationETS.Migrations
 
                     b.Property<string>("vehicleRegistrationNo")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("vehicleStatus")
                         .HasColumnType("int");
