@@ -12,7 +12,9 @@ using WebApplicationETS.Service.CompliancesServices.VehicleServices.FuelTypeServ
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.GpsProviderService;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleModelService;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleStatusService;
-using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleTypeService; // ✅ Correct namespace for DataContext
+using WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleTypeService;
+using WebApplicationETS.Service.OfficeServices;
+using static WebApplicationETS.Factories.CurrentStatusFactory; // ✅ Correct namespace for DataContext
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +43,11 @@ builder.Services.AddScoped<IVehicleStatusService, VehicleStatusService>();
 builder.Services.AddScoped<ICurrentStatusService, CurrentStatusService>();
 builder.Services.AddScoped<IGpsProviderService, GpsProviderService>();
 builder.Services.AddScoped<IVehicleFactory, VehicleFactory>();
+builder.Services.AddScoped<IOfficeFactory, OfficeFactory>();
 builder.Services.AddScoped<IBillPlanFactory, BillPlanFactory>();
+builder.Services.AddScoped<ICurrentStatusFactory, CurrentStatusFactoryImpl>();
+builder.Services.AddScoped<IOfficeService, OfficeService>();
+builder.Services.AddScoped<IOfficeFactory, OfficeFactory>();
 
 
 // Register EF Core DbContext

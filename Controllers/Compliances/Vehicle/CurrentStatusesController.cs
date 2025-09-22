@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplicationETS.Model.Compliances.VehicleCompliances;
+using WebApplicationETS.Model.Dtos.LkpCurrentStatus;
 using WebApplicationETS.Service.CompliancesServices.VehicleServices.CurrentStatusService;
 
 namespace WebApplicationETS.Controllers.Compliances.Vehicle
@@ -40,9 +41,9 @@ namespace WebApplicationETS.Controllers.Compliances.Vehicle
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCurrentStatus([FromBody]  LkpCurrentStatus currentStatus)
+        public async Task<IActionResult> AddCurrentStatus([FromBody] CurrentStatusDto dto)
         {
-            var response = await currentStatusService.AddCurrentStatusAsync(currentStatus);
+            var response = await currentStatusService.AddCurrentStatusAsync(dto);
             if (!response.Status)
                 return BadRequest(response);
             return CreatedAtAction(nameof(AddCurrentStatus), response);

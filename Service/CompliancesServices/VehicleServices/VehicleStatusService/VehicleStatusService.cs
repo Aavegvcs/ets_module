@@ -20,6 +20,13 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleS
                 {
                  return new ApiResponse<LkpVehicleStatus>(false, null, "Invalid vehicle status data");
                 }
+
+            bool exist = await _context.LkpVehicleStatuses.AnyAsync(x=>x.vehicleStatusName == vehicleStatus.vehicleStatusName);
+
+            if (exist)
+            {
+                return new ApiResponse<LkpVehicleStatus>(false , null , "same vehicleStatusName already exist");
+            }
                 _context.LkpVehicleStatuses.Add(vehicleStatus);
                 await _context.SaveChangesAsync();
                 return new ApiResponse<LkpVehicleStatus>(true, vehicleStatus, "Vehicle status added successfully");

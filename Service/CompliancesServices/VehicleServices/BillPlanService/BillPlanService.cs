@@ -19,37 +19,34 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.BillPlan
 
         }
 
-        //public async Task<ApiResponse<LkpBillPlanType>> AddBillPlanAsync(LkpBillPlanType billPlan)
-        //{
-        //    if (billPlan == null)
-        //    {
-        //        return new ApiResponse<LkpBillPlanType>(false, null, "Invalid bill plan data");
-        //    }
-
-        //    _context.LkpBillPlanTypes.Add(billPlan);
-        //    await _context.SaveChangesAsync();
-        //    return new ApiResponse<LkpBillPlanType>(true, billPlan, "Bill plan added successfully");
-        //}
-
+      
         public async Task<ApiResponse<LkpBillPlanType>> AddBillPlanAsync(BillPlanDto dto)
         {
-
             // Run through factory validation + mapping
             var result = _billPlanFactory.Create(dto);
 
-            if (!result.Success)
+            if (!result.success)
             {
-                return new ApiResponse<LkpBillPlanType>(false, null, result.ErrorMessage);
+                return new ApiResponse<LkpBillPlanType>(false, null, result.errorMessage);
             }
 
-            var billPlan = result.BillPlan;
+            var billPlan = result.billPlan;
+
+            // 🔍 Check for duplicates (by Code or Name)
+            bool exists = await _context.LkpBillPlanTypes
+                .AnyAsync(x => x.bptCode == billPlan.bptCode || x.bptName == billPlan.bptName);
+
+            if (exists)
+            {
+                return new ApiResponse<LkpBillPlanType>(false, null, "Bill plan with same code or name already exists.");
+            }
 
             _context.LkpBillPlanTypes.Add(billPlan);
             await _context.SaveChangesAsync();
 
             return new ApiResponse<LkpBillPlanType>(true, billPlan, "Bill plan added successfully");
-
         }
+
 
 
         public async Task<ApiResponse<LkpBillPlanType>> getBillPlanByidAsync(string id)

@@ -30,13 +30,13 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices
                 return new ApiResponse<Vehicle>(false, null, "Vehicle registration number already exists");
 
             var result = _vehicleFactory.Create(dto);
-            if (!result.Success)
-                return new ApiResponse<Vehicle>(false, null, result.ErrorMessage);
+            if (!result.success)
+                return new ApiResponse<Vehicle>(false, null, result.errorMessage);
 
-            _context.Vehicles.Add(result.Vehicle!);
+            _context.Vehicles.Add(result.vehicle!);
             await _context.SaveChangesAsync();
 
-            return new ApiResponse<Vehicle>(true, result.Vehicle, "Vehicle added successfully");
+            return new ApiResponse<Vehicle>(true, result.vehicle, "Vehicle added successfully");
         }
 
         public async Task<ApiResponse<Vehicle>> UpdateVehicleAsync(int vehicleId, VehicleDto dto)
@@ -61,10 +61,10 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices
 
                 // ✅ Run factory validations
                 var result = _vehicleFactory.Create(dto);
-                if (!result.Success)
-                    return new ApiResponse<Vehicle>(false, null, result.ErrorMessage);
+                if (!result.success)
+                    return new ApiResponse<Vehicle>(false, null, result.errorMessage);
 
-                var validatedVehicle = result.Vehicle!;
+                var validatedVehicle = result.vehicle!;
 
                 // ✅ Update only allowed fields (copy properties)
                 existingVehicle.vehicleRegistrationNo = validatedVehicle.vehicleRegistrationNo;
@@ -152,3 +152,7 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices
 
     }
 }
+
+
+
+

@@ -20,6 +20,12 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleM
             {
                 return new ApiResponse<LkpVehicleModel>(false, null, "Invalid vehicle model data");
             }
+
+            bool exist = await _context.LkpVehicleModels.AnyAsync(x => x.modelDesc == vehicleModel.modelDesc);
+            if (exist)
+            {
+                return new ApiResponse<LkpVehicleModel>(false, null, "Vehicle model with name name exist");
+            }
             _context.LkpVehicleModels.Add(vehicleModel);
             await _context.SaveChangesAsync();
             return new ApiResponse<LkpVehicleModel>(true, vehicleModel, "Vehicle model added successfully");

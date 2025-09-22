@@ -20,7 +20,13 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.GpsProvi
             {
                 return new ApiResponse<LkpGpsProvider>(false, null, "Invalid GPS provider data");
             }
-            _context.LkpGpsProviders.Add(gpsProvider);
+
+            bool exist = await _context.LkpGpsProviders.AnyAsync(x => x.gpsProviderName == gpsProvider.gpsProviderName);
+          if (exist)
+            {
+                return new ApiResponse<LkpGpsProvider>(false, null, "gpsCode already exist");
+            }
+                _context.LkpGpsProviders.Add(gpsProvider);
             await _context.SaveChangesAsync();
             return new ApiResponse<LkpGpsProvider>(true, gpsProvider, "GPS provider added successfully");
         }

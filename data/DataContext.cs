@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplicationETS.Model.Compliances.VehicleCompliances;
 using WebApplicationETS.Model.Compliances.VendorCompliances;
-using WebApplicationETS.Model; // Namespace for your models
+using WebApplicationETS.Model;
+using WebApplicationETS.Model.Compliances.Office;
+
 
 namespace WebApplicationETS.Data
 {
@@ -26,6 +28,8 @@ namespace WebApplicationETS.Data
         public DbSet<LkpCurrentStatus> LkpCurrentStatuses { get; set; }
 
         public DbSet<LkpGpsProvider> LkpGpsProviders { get; set; }
+
+        public DbSet<Office> Office { get; set; }
     }
 
 }

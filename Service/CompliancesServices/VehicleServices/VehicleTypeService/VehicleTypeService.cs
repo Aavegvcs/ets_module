@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 using WebApplicationETS.Data;
 using WebApplicationETS.Model.Compliances.VehicleCompliances;
 using WebApplicationETS.Model.otherModel;
@@ -20,6 +21,12 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.VehicleT
             if(vehicleType == null)
             {
                return new ApiResponse<LkpVehicleType>(false, null, "Invalid vehicle type data");
+            }
+
+            bool exist = await _context.LkpVehicleTypes.AnyAsync(x => x.vehicleTypeDesc == vehicleType.vehicleTypeDesc);
+            if (exist)
+            {
+                return new ApiResponse<LkpVehicleType>(false, null, "vehicleTypeDesc already exist");
             }
             _context.LkpVehicleTypes.Add(vehicleType);
             await _context.SaveChangesAsync();

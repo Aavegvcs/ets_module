@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplicationETS.Data;
 using WebApplicationETS.Model.Compliances.VehicleCompliances;
+using WebApplicationETS.Model.Dtos.LkpCurrentStatus;
 using WebApplicationETS.Model.otherModel;
+using static WebApplicationETS.Factories.CurrentStatusFactory;
 
 namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.CurrentStatusService
 {
@@ -9,22 +11,46 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.CurrentS
     {
 
         private readonly DataContext _context;
+        private readonly ICurrentStatusFactory _currentStatusFactory;
 
-        public CurrentStatusService(DataContext context)
+        public CurrentStatusService(DataContext context, ICurrentStatusFactory currentStatusFactory)
         {
             _context = context;
+            _currentStatusFactory = currentStatusFactory;
         }
 
-        public async Task<ApiResponse<LkpCurrentStatus>> AddCurrentStatusAsync(LkpCurrentStatus currentStatus)
+        //public async Task<ApiResponse<LkpCurrentStatus>> AddCurrentStatusAsync(LkpCurrentStatus currentStatus)
+        //{
+        //   if(currentStatus == null)
+        //    {
+        //        return new ApiResponse<LkpCurrentStatus>(false, null, "Invalid current status data");
+        //    }
+        //    _context.LkpCurrentStatuses.Add(currentStatus);
+        //    await _context.SaveChangesAsync();
+        //    return new ApiResponse<LkpCurrentStatus>(true, currentStatus, "Current status added successfully");
+        //}
+
+
+        public async Task<ApiResponse<LkpCurrentStatus>> AddCurrentStatusAsync(CurrentStatusDto dto)
         {
-           if(currentStatus == null)
+            var result = _currentStatusFactory.Create(dto);
+            if(!result.success)
             {
-                return new ApiResponse<LkpCurrentStatus>(false, null, "Invalid current status data");
+                return new ApiResponse<LkpCurrentStatus>(false, null, result.errorMessage);
+            }
+            var currentStatus = result.currentStatus;
+
+            bool exist=await _context.LkpCurrentStatuses.AnyAsync(x=>x.currentStatusCode==currentStatus.currentStatusCode || x.currentStatusName==currentStatus.currentStatusName);
+
+            if(exist)
+            {
+                return new ApiResponse<LkpCurrentStatus>(false, null, "Current status with same code or name already exists");
             }
             _context.LkpCurrentStatuses.Add(currentStatus);
             await _context.SaveChangesAsync();
             return new ApiResponse<LkpCurrentStatus>(true, currentStatus, "Current status added successfully");
         }
+
 
 
         public async Task<ApiResponse<LkpCurrentStatus>> getCurrentStatusByIdAsync(int currentStatusCode)

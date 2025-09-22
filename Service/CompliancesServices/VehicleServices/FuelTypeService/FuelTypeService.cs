@@ -14,18 +14,41 @@ namespace WebApplicationETS.Service.CompliancesServices.VehicleServices.FuelType
             _context = context;
         }
 
+        //public async Task<ApiResponse<LkpFuelType>> AddFuelTypeAsync(LkpFuelType fuelType)
+        //{
+        //   if(fuelType == null)
+        //    {
+        //        return new ApiResponse<LkpFuelType>(false, null, "Invalid fuel type data");
+        //    }
+        //    _context.LkpFuelTypes.Add(fuelType);
+        //    await _context.SaveChangesAsync();
+        //    return new ApiResponse<LkpFuelType>(true, fuelType, "Fuel type added successfully");
+        //}
+
         public async Task<ApiResponse<LkpFuelType>> AddFuelTypeAsync(LkpFuelType fuelType)
         {
-           if(fuelType == null)
+            if (fuelType == null)
             {
                 return new ApiResponse<LkpFuelType>(false, null, "Invalid fuel type data");
             }
+
+            // Assuming FuelTypeName should be unique
+            var existingFuelType = await _context.LkpFuelTypes
+                .FirstOrDefaultAsync(x => x.fuelTypeName.ToLower() == fuelType.fuelTypeName.ToLower());
+
+            if (existingFuelType != null)
+            {
+                return new ApiResponse<LkpFuelType>(false, null, "Fuel type already exists");
+            }
+
             _context.LkpFuelTypes.Add(fuelType);
             await _context.SaveChangesAsync();
+
             return new ApiResponse<LkpFuelType>(true, fuelType, "Fuel type added successfully");
         }
 
-       public async Task<ApiResponse<LkpFuelType>> getFuelTypeByidAsync(int id)
+
+        public async Task<ApiResponse<LkpFuelType>> getFuelTypeByidAsync(int id)
         {
             if(id==null)
             {
